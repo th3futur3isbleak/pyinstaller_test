@@ -13,6 +13,12 @@ from netmiko.ssh_exception import (NetMikoAuthenticationException,
 logger = logging.getLogger(__name__)
 
 
+def add_two_numbers(arg1, arg2):
+    if arg1 == 'blah':
+        print('What?')
+    return arg1 + arg2
+
+
 def setup_logging(log_level,
                   logfile_name):
     """

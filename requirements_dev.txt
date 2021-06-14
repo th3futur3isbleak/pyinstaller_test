@@ -1,0 +1,9 @@
+pytest-cov
+pytest-html
+pytest-json-report
+pytest-metadata
+pytest-runner
+pytest-watch
+flake8
+pylint
+xenon

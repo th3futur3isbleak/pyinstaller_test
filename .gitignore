@@ -129,3 +129,7 @@ dmypy.json
 
 # Jetbrains IDE
 .idea/
+
+junit/
+pytest-reports/
+test_results/
