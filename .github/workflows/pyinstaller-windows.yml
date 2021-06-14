@@ -33,12 +33,18 @@ jobs:
       - name: Pytest
         run: |
           pytest tests --junitxml=test_results/junit/test-results.xml --json-report --json-report-file=test_results/pytest-reports/unit_tests.json --html=test_results/pytest-reports/unit_tests_report.html --self-contained-html --cov=pyinstaller_test tests/ --cov-report html:test_results/coverage/cov_html --cov-report xml:test_results/coverage/cov.xml --cov-report annotate:test_results/coverage/cov_annotate --cov=pyinstaller_test tests/
-      - name: pylint
+      - name: Pylint
         run: |
           pylint -r y --output test_results/pylint.txt --exit-zero pyinstaller_test/
-      - name: flake8
+      - name: Flake8
         run: |
           flake8 --exit-zero pyinstaller_test/ --tee --output test_results/flake8.txt
+      - name: Radon
+        run: |
+          radon cc pyinstaller_test/ > test_results/radon_cc.txt
+          radon raw pyinstaller_test/ > test_results/radon_raw.txt
+          radon mi pyinstaller_test/ > test_results/radon_mi.txt
+          radon hal pyinsatller_test/ > test_results/radon_hal.txt
       - name: Create GitHub release
         # Creates a Github release
         # These are numbered sequentially.  If a version tag is to be
