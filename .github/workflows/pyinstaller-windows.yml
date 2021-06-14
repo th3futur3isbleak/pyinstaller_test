@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - main
-
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 # Set these environment variables for your project
 env:
   PYINST_EXE_NAME: show_version
   SOURCE_PYTHON_FILE_PATH: show_version.py
   _PYTHON_VERSION: 3.8
+  PACKAGE_NAME: pyinstaller_test
 
 jobs:
   build:
@@ -31,6 +33,7 @@ jobs:
           pip install -r requirements_dev.txt
           python setup.py install
       - name: Pytest
+        PACKAGE_NAME: ${{env.PACKAGE_NAME}}
         run: |
           # pytest tests --junitxml=test_results/junit/test-results.xml --json-report --json-report-file=test_results/pytest-reports/unit_tests.json --html=test_results/pytest-reports/unit_tests_report.html --self-contained-html --cov=pyinstaller_test tests/ --cov-report html:test_results/coverage/cov_html --cov-report xml:test_results/coverage/cov.xml --cov-report annotate:test_results/coverage/cov_annotate --cov=pyinstaller_test tests/
           .github/workflows/run_pytest.bat
@@ -42,10 +45,10 @@ jobs:
           flake8 --exit-zero pyinstaller_test/ --tee --output test_results/flake8.txt
       - name: Radon
         run: |
-          radon cc pyinstaller_test/ > test_results/radon_cc.txt
-          radon raw pyinstaller_test/ > test_results/radon_raw.txt
-          radon mi pyinstaller_test/ > test_results/radon_mi.txt
-          radon hal pyinsatller_test/ > test_results/radon_hal.txt
+          radon cc ${{env.PACKAGE_NAME}}/ > test_results/radon_cc.txt
+          radon raw ${{env.PACKAGE_NAME}}/ > test_results/radon_raw.txt
+          radon mi ${{env.PACKAGE_NAME}}/ > test_results/radon_mi.txt
+          radon hal ${{env.PACKAGE_NAME}}/ > test_results/radon_hal.txt
       - name: Create GitHub release
         # Creates a Github release
         # These are numbered sequentially.  If a version tag is to be

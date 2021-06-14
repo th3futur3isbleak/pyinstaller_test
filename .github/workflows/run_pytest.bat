@@ -7,4 +7,4 @@ pytest tests/ --junitxml=test_results/junit/test-results.xml ^
         --cov-report html:test_results/coverage/cov_html ^
         --cov-report xml:test_results/coverage/cov.xml ^
         --cov-report annotate:test_results/coverage/cov_annotate ^
-        --cov=pyinstaller_test tests/
+        --cov=%PACKAGE_NAME% tests/
