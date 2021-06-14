@@ -33,7 +33,8 @@ jobs:
           pip install -r requirements_dev.txt
           python setup.py install
       - name: Pytest
-        PACKAGE_NAME: ${{env.PACKAGE_NAME}}
+        env:
+          PACKAGE_NAME: ${{env.PACKAGE_NAME}}
         run: |
           # pytest tests --junitxml=test_results/junit/test-results.xml --json-report --json-report-file=test_results/pytest-reports/unit_tests.json --html=test_results/pytest-reports/unit_tests_report.html --self-contained-html --cov=pyinstaller_test tests/ --cov-report html:test_results/coverage/cov_html --cov-report xml:test_results/coverage/cov.xml --cov-report annotate:test_results/coverage/cov_annotate --cov=pyinstaller_test tests/
           .github/workflows/run_pytest.bat
