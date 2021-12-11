@@ -6,4 +6,4 @@ pytest-runner
 pytest-watch
 flake8
 pylint
-radon
+xenon
